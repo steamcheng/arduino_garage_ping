@@ -3,6 +3,4 @@ Test program for parking assist lights.  This uses two HC-SR04 ultrasonic distan
 
 Created by: Davis Whittaker on 1 Oct 2016.
 
-Last Modified: 3 Oct 2016
-
-3 Oct 2016: Added flashing red lights for distances less than 8". Removed use of pins to control power to the sensors
+Last Modified: 3 Oct 2016: Added flashing red lights for distances less than 8". Removed use of pins to control power to the sensors.
