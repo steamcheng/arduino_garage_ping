@@ -1,5 +1,5 @@
 /*  Test program for parking assist lights.  This uses two HC-SR04 ultrasonic
-*   distanse sensors to make ranging tests on car position and then lights up
+*   distance sensors to make ranging tests on car position and then lights up
 *   a series of LEDs to provide feedback to the driver.
 *
 *   Created by: Davis Whittaker
@@ -45,7 +45,7 @@ void setup() {
 }
 
 void loop() {
-  delay(50);  // Wait 50ms between pings (about 20 pings/sec). 29ms should be the shortest delay between pings.
+  delay(40);  // Wait 40ms between pings (about 25 pings/sec). 29ms should be the shortest delay between pings.
   ping1 = sonar1.ping_in();
   ping2 = sonar2.ping_in();
   distance = (ping1 + ping2)/2;
