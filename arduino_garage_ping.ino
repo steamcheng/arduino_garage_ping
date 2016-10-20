@@ -26,14 +26,17 @@ int greenpin = 12;
 int ping1;
 int ping2;
 int distance;
-// int d;
-//void flashred(int);
 
 NewPing sonar1(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE); // NewPing setup of pins and maximum distance.
 NewPing sonar2(TRIGGER_PIN2, ECHO_PIN2, MAX_DISTANCE); // NewPing setup of pins and maximum distance.
 
 void setup() {
   Serial.begin(115200); // Open serial monitor at 115200 baud to see ping results.
+
+  pinMode(TRIGGER_PIN, OUTPUT);
+  pinMode(ECHO_PIN, INPUT);
+  pinMode(TRIGGER_PIN2, OUTPUT);
+  pinMode(ECHO_PIN2, INPUT);  
   
   pinMode(redpin, OUTPUT);      // Red LED
   pinMode(yellowpin, OUTPUT);   // GND ping
