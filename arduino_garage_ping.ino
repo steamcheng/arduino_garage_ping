@@ -8,6 +8,7 @@
 *
 *   3 Oct 2016 - Added flashing red lights for distances less than 8"
                - Removed use of pins to control power to the sensors
+   21 Oct 2016 - Updated to add debug toggle for serial debug output.
 */
 
 #include <NewPing.h>
