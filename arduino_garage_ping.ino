@@ -11,18 +11,24 @@
 */
 
 #include <NewPing.h>
-
+// Sensor 1
 #define TRIGGER_PIN  2   // Arduino pin tied to trigger pin on 1st ultrasonic sensor.
 #define ECHO_PIN     3   // Arduino pin tied to echo pin on 1st ultrasonic sensor.
-
+// Sensor 2
 #define TRIGGER_PIN2  7   // Arduino pin tied to trigger pin on 2nd ultrasonic sensor.
 #define ECHO_PIN2     8   // Arduino pin tied to echo pin on 2nd ultrasonic sensor.
-
+// Red, yellow, green lights
 #define redpin 10
 #define yellowpin  11
 #define greenpin  12
 
 #define MAX_DISTANCE 200 // Maximum distance we want to ping for (in centimeters). Maximum sensor distance is rated at 400-500cm.
+
+/****************Debug Setting********************/
+
+// boolean debug = true;   // Set for debug on
+ boolean debug = false;  // Set for debug off
+
 
 int ping1;     // Holds distance returned by sensor 1
 int ping2;     // Holds distance returned by sensor 2
@@ -32,17 +38,19 @@ NewPing sonar1(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE); // NewPing setup of pins an
 NewPing sonar2(TRIGGER_PIN2, ECHO_PIN2, MAX_DISTANCE); // NewPing setup of pins and maximum distance.
 
 void setup() {
-  Serial.begin(115200); // Open serial monitor at 115200 baud to see ping results.
+  if (debug) { Serial.begin(115200); } // Open serial monitor at 115200 baud to see ping results.
 
+  // Set up sensor pins
   pinMode(TRIGGER_PIN, OUTPUT);
   pinMode(ECHO_PIN, INPUT);
   pinMode(TRIGGER_PIN2, OUTPUT);
   pinMode(ECHO_PIN2, INPUT);  
-  
-  pinMode(redpin, OUTPUT);      // Red LED
-  pinMode(yellowpin, OUTPUT);   // GND ping
-  pinMode(greenpin, OUTPUT);    // GND ping
-  
+
+  // Set up R/G/B light pins
+  pinMode(redpin, OUTPUT);      // Red light
+  pinMode(yellowpin, OUTPUT);   // Yellow light
+  pinMode(greenpin, OUTPUT);    // Red light
+  // Set all lights off at start
   digitalWrite(redpin, LOW);
   digitalWrite(yellowpin, LOW);  
   digitalWrite(greenpin, LOW);    
@@ -53,8 +61,9 @@ void loop() {
   ping1 = sonar1.ping_in();  // Get sensor 1 distance
   ping2 = sonar2.ping_in();  // Get sensor 2 distance
   distance = (ping1 + ping2)/2;  // Calculate average distance
+  
   /* Now some serial output for troubleshooting */
-  Serial.print("Ping1: ");
+  if (debug) { Serial.print("Ping1: ");
   Serial.print(ping1); // Send ping, get distance in cm and print result (0 = outside set distance range)
   Serial.print("in    ");  
   Serial.print("Ping2: ");
@@ -62,10 +71,10 @@ void loop() {
   Serial.print("in    ");
   Serial.print("Avg: ");
   Serial.print(distance);   
-  Serial.println("in");  
+  Serial.println("in");  }
   /* End of serial troubleshooting data section.  */
 
-  /* Check if sensor is timed out */
+  /* Check if sensor is timed out and reset if needed */
   if (distance == 0){
     resetSensors();
   }
@@ -126,6 +135,7 @@ void resetSensors(void){
   digitalWrite(ECHO_PIN2, LOW);
   pinMode(ECHO_PIN, INPUT);
   pinMode(ECHO_PIN2, INPUT); 
+  if (debug) { Serial.println("Reset Sensor!"); }
   
 }
 
